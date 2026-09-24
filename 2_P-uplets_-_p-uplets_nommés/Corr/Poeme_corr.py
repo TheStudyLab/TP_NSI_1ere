@@ -1,0 +1,58 @@
+﻿
+"""
+À vous de prendre la vie dans le bon sens
+Poème à lire dans les 2 sens pour redonner confiance.
+Comment changer le sens de ce poème    ? 
+"""
+poeme = (
+['Je', 'suis', 'un', 'gros', 'nul'],
+['Personne', 'n’ose', 'penser', 'que'],
+['Je', 'suis', 'un', 'gros', 'nul'],
+['Personne', 'n’ose', 'penser', 'que'],
+['Je', 'suis', 'capable', 'd’accomplir', 'de', 'grandes', 'choses'],
+['Je', 'sais', 'que'],
+['Je', 'raterai', 'tout', 'ce', 'que', "j'entreprendrai"],
+['Je', 'ne', 'crois', 'plus', 'que'],
+['Je', 'peux', 'réussir'],
+['Je', 'suis', 'persuadé', 'que'],
+['Je', 'ne', 'vaux', 'rien'],
+['J’ai', 'arrêté', 'de', 'me', 'dire', 'que'],
+['J’ai', 'confiance', 'en', 'moi'],
+['Je', 'suis', 'convaincu', "d'une", 'chose', ':'],
+['Je', 'suis', "quelqu'un", "d'inutile"],
+['Et', 'ce', 'serait', 'idiot', 'de', 'penser', 'que'],
+['Je', 'suis', 'une', 'belle', 'personne'])
+
+for i in range(len(poeme)-1,0,-1):      #on commence par le dernier index de poeme qui est une liste
+    #print ("i ",i,"  ",poeme[i],"\n")
+    for j in range(len(poeme[i])):      #on parcourt cette liste en commençant par l'indice 0
+        print(poeme[i][j], end=' ')     #on affiche 1 par 1 les element liés aux indices
+    print (" ")                         #et un supprimant les crochets end=' ' puis retour à la ligne
+
+
+##for i in range(len(poeme)-1,1,-1):
+##    print (poeme[i])
+##print('\n')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
