@@ -13,4 +13,5 @@ print("\n« Quel est le fruit de couleur verte ?  »\n")
 
 for cle, valeur in dicojardin.items():                              # Parcourt chaque paire clé-valeur dans le dictionnaire
     if cle == 'vert':                                               # Vérifie si la cle est 'vert'
-        print(f"Le fruit de couleur verte est le {valeur}")         # Affiche le fruit de couleur verte                                                         # Sort de la boucle après avoir trouvé le fruit vert
+        print(f"Le fruit de couleur verte est le {valeur}")         # Affiche le fruit de couleur verte
+                                                                    # Sort de la boucle après avoir trouvé le fruit vert
