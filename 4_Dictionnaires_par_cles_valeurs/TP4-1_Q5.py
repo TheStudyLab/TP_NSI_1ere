@@ -1,16 +1,12 @@
-t = {"janvier": -5,
-    "février": 2,
-    "Novembre": 12,
-    "Décembre": 7
-    }
+temp = {'Janvier': -5, 
+        'Février': 2, 
+        'Décembre': 7, 
+        'Novembre': 12,}
 
-temp = 0
-maximum = []
+ma = -110
+for cle , valeur in temp.items():
+    if valeur > ma:
+        ma = valeur
+        mois = cle
 
-for cle, valeur in t.items():
-    if int(valeur) > temp:
-        temp = valeur
-        maximum = [cle, valeur]
-
-print(maximum)
-print("[\'Novembre\', 12]")
+print(f"('{mois}', {ma}).")
