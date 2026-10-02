@@ -13,8 +13,3 @@ for animal in animaux:
         animaux_par_enclos.append(animal)
 print(f"num_enclos = {num_enclos}")
 print(animaux_par_enclos)
-        
-
-
-
-

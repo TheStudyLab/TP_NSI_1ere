@@ -24,4 +24,3 @@ for animal, (continent, nb) in dico_zoo.items():
         l.append(animal)
 
 print(f"Nom des animaux originaires d'Asie : {l}\n")
-

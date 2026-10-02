@@ -8,4 +8,3 @@ for i in range(len(l)):
     else:
         d[l[i]] = [i]
 print(d)
-    
