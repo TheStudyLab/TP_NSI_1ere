@@ -1,2 +1,1 @@
-n = int(input("Enter a number : "))
-print(bin(n))
+print(bin(int(input("Enter a number : "))))

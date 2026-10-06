@@ -1,2 +1,1 @@
-n = int(input("Enter a number : "))
-print(hex(n))
+print(hex(int(input("Enter a number : "))))
