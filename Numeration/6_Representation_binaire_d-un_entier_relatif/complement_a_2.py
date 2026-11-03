@@ -1,5 +1,6 @@
 def complement_a_deux(nb):
     inverse = [1 - bit for bit in nb]
+    print("Complément à 1 : ", inverse)
     
     retenue = 1
     resultat = list(inverse)
@@ -12,7 +13,6 @@ def complement_a_deux(nb):
         else:
             resultat[i] = somme
             retenue = 0
-            break
             
     return resultat
 
