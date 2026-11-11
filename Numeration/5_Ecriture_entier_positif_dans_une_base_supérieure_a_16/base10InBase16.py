@@ -1,19 +1,14 @@
-# print(hex(int(input("Enter a number : "))))
-
-def hexadecimal(n):
+def decimal_to_hexadecimal(n):
+    """Convert a positive integer from base 10 to base 16."""
     if n == 0:
-        return "0x0"
-    
-    # Caractères hexadécimaux disponibles
-    symboles = "0123456789ABCDEF"
-    resultat = ""
-    
-    valeur = n
-    while valeur > 0:
-        reste = valeur % 16
-        resultat = symboles[reste] + resultat
-        valeur //= 16
+        return "0"
         
-    return "0x" + resultat
-
-print(hexadecimal(int(input("Enter a new number : "))))
+    hex_chars = "0123456789ABCDEF"
+    hex_str = ""
+    
+    while n > 0:
+        remainder = n % 16
+        hex_str = hex_chars[remainder] + hex_str
+        n = n // 16
+        
+    return hex_str
