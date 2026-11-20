@@ -25,7 +25,10 @@ jobs:
         run: |
           set -u
           failed=0
+          ignored=0
           total=0
+          failures=()
+          ignored_list=()
 
           # Provide default stdin in case a script calls input()
           dummy_input="$(printf '1\n2\n3\n4\n5\ntest\n')"
@@ -47,8 +50,15 @@ jobs:
               echo "PASS: $script"
             else
               exit_code=$?
-              echo "FAIL (exit code $exit_code): $script"
-              failed=$((failed + 1))
+              if grep -q "# ci: allow-fail" "$script"; then
+                echo "IGNORED (expected failure, exit code $exit_code): $script"
+                ignored=$((ignored + 1))
+                ignored_list+=("[$total] (code $exit_code) $script")
+              else
+                echo "FAIL (exit code $exit_code): $script"
+                failed=$((failed + 1))
+                failures+=("[$total] (code $exit_code) $script")
+              fi
             fi
           done < <(find . -type f -name "*.py" \
             ! -path "./.git/*" \
@@ -57,9 +67,20 @@ jobs:
             ! -path "*/venv/*" \
             -print0 | sort -z)
 
-          echo ""
-          echo "Summary: $((total - failed))/$total scripts passed, $failed failed."
+          passed=$((total - failed - ignored))
 
-          if [ "$failed" -gt 0 ]; then
+          echo ""
+          echo "Summary: $passed passed, $ignored ignored (expected), $failed failed (total: $total)."
+
+          if [ "${#ignored_list[@]}" -gt 0 ]; then
+            echo ""
+            echo "Ignored scripts (# ci: allow-fail):"
+            printf '  - %s\n' "${ignored_list[@]}"
+          fi
+
+          if [ "${#failures[@]}" -gt 0 ]; then
+            echo ""
+            echo "Failed scripts:"
+            printf '  - %s\n' "${failures[@]}"
             exit 1
           fi
