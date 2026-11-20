@@ -1,0 +1,65 @@
+name: CI for all Python scripts
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: ["**"]
+  workflow_dispatch:
+
+jobs:
+  test-all-scripts:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Run all Python scripts in the repository
+        shell: bash
+        run: |
+          set -u
+          failed=0
+          total=0
+
+          # Provide default stdin in case a script calls input()
+          dummy_input="$(printf '1\n2\n3\n4\n5\ntest\n')"
+
+          while IFS= read -r -d '' script; do
+            total=$((total + 1))
+            script_dir="$(dirname "$script")"
+            script_name="$(basename "$script")"
+
+            echo "=========================================="
+            echo "[$total] Testing: $script"
+            echo "=========================================="
+
+            if (
+              cd "$script_dir" &&
+              PYTHONPATH="$script_dir:${PYTHONPATH:-}" \
+              timeout 15s python3 -B "$script_name" <<< "$dummy_input"
+            ); then
+              echo "PASS: $script"
+            else
+              exit_code=$?
+              echo "FAIL (exit code $exit_code): $script"
+              failed=$((failed + 1))
+            fi
+          done < <(find . -type f -name "*.py" \
+            ! -path "./.git/*" \
+            ! -path "*/__pycache__/*" \
+            ! -path "*/.venv/*" \
+            ! -path "*/venv/*" \
+            -print0 | sort -z)
+
+          echo ""
+          echo "Summary: $((total - failed))/$total scripts passed, $failed failed."
+
+          if [ "$failed" -gt 0 ]; then
+            exit 1
+          fi
